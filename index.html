@@ -369,4 +369,1376 @@ select.vfield option{background:var(--sur)}
 .slides-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:900px}
 @media(max-width:700px){.slides-grid{grid-template-columns:1fr}}
 .slides-grid .full{grid-column:1/-1}
-.sfield{width:100%;padding:10px 12px;background:var(--sur);border:1px solid var(--bl);border-radius:var(--rads);color:var(
+.sfield{width:100%;padding:10px 12px;background:var(--sur);border:1px solid var(--bl);border-radius:var(--rads);color:var(--t);font-family:var(--f2);font-size:13px;outline:none;transition:all .2s}
+.sfield:focus{border-color:var(--p);box-shadow:0 0 0 3px var(--pa)}
+.sfield::placeholder{color:var(--td)}
+textarea.sfield{resize:vertical;min-height:80px}
+select.sfield option{background:var(--sur)}
+.scard{background:var(--card);border:1px solid var(--b);border-radius:var(--rad);padding:18px}
+
+.style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}
+.style-opt{
+  padding:9px 8px;border:1px solid var(--bl);border-radius:var(--rads);
+  cursor:pointer;transition:all .18s;text-align:center;
+  background:var(--sur);
+}
+.style-opt:hover{background:var(--card)}
+.style-opt.act{background:var(--pa);border-color:rgba(109,40,217,.4)}
+.style-opt .so-icon{font-size:20px;margin-bottom:4px}
+.style-opt .so-name{font-size:10px;font-weight:700;color:var(--tm)}
+.style-opt.act .so-name{color:#c4b5fd}
+
+.sbtn2{
+  width:100%;padding:12px;margin-top:12px;
+  border:none;border-radius:var(--rads);cursor:pointer;
+  font-family:var(--f1);font-size:12px;font-weight:900;letter-spacing:.07em;
+  transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;
+}
+.sbtn2:hover{box-shadow:0 0 24px var(--pg);transform:translateY(-1px)}
+.sbtn2:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* Slide preview */
+#slides-out{margin-top:20px;display:none;max-width:900px}
+#slides-out.vis{display:block}
+.slide-nav{display:flex;align-items:center;gap:10px;margin-bottom:12px;justify-content:space-between}
+.snav-btn{padding:6px 14px;border:1px solid var(--bl);border-radius:var(--rads);background:var(--card);color:var(--tm);font-size:12px;cursor:pointer;transition:all .15s}
+.snav-btn:hover{border-color:var(--p);color:#c4b5fd}
+.snav-btn:disabled{opacity:.3;cursor:not-allowed}
+.snav-count{font-size:12px;color:var(--tm);font-weight:600}
+.slide-frame{
+  background:#fff;border-radius:var(--rad);overflow:hidden;
+  aspect-ratio:16/9;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+.slide-frame iframe{width:100%;height:100%;border:none}
+.slide-dl-row{display:flex;gap:8px;margin-top:10px}
+.sdl{padding:8px 16px;border:1px solid;border-radius:var(--rads);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;font-family:var(--f2)}
+.sdl.html{border-color:rgba(6,182,212,.4);color:var(--c);background:var(--ca)}
+.sdl.html:hover{background:rgba(6,182,212,.22)}
+
+/* ═══ SITES/APPS PAGE ═══ */
+#pg-sites{overflow-y:auto;padding:24px}
+#pg-sites::-webkit-scrollbar{width:3px}
+#pg-sites::-webkit-scrollbar-thumb{background:var(--b);border-radius:3px}
+
+.app-types{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+@media(max-width:600px){.app-types{grid-template-columns:repeat(2,1fr)}}
+.atype{
+  padding:14px 10px;border:1px solid var(--bl);border-radius:var(--rad);
+  background:var(--card);cursor:pointer;transition:all .18s;text-align:center;
+}
+.atype:hover{background:var(--card2);border-color:var(--p)}
+.atype.act{background:var(--pa);border-color:rgba(109,40,217,.45)}
+.atype-icon{font-size:24px;margin-bottom:5px}
+.atype-name{font-size:11px;font-weight:700;color:var(--tm)}
+.atype.act .atype-name{color:#c4b5fd}
+
+/* Toast */
+#toast{
+  position:fixed;bottom:18px;right:18px;z-index:9999;
+  padding:10px 15px;background:var(--card2);border:1px solid var(--bl);border-radius:var(--rads);
+  color:var(--t);font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:7px;
+  transform:translateY(70px);opacity:0;pointer-events:none;transition:all .28s;max-width:280px;
+}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.ok{border-color:var(--g)}
+#toast.er{border-color:var(--r)}
+#toast.cy{border-color:var(--c)}
+
+/* Shared scrollbar */
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--b);border-radius:3px}
+</style>
+</head>
+<body>
+<div id="shell">
+
+<!-- ═══ ICON NAV ═══ -->
+<nav id="nav">
+  <div class="nav-logo" title="REBORN">RB</div>
+  <div class="nav-sep"></div>
+
+  <div class="ni act" id="ni-chat" onclick="goPage('chat')" title="">
+    💬<div class="ni-tip">Chat IA</div>
+  </div>
+  <div class="ni" id="ni-video" onclick="goPage('video')" title="">
+    🎬<div class="ni-tip">Gerar Vídeo</div>
+  </div>
+  <div class="ni" id="ni-slides" onclick="goPage('slides')" title="">
+    🖼<div class="ni-tip">Apresentações</div>
+  </div>
+  <div class="ni" id="ni-sites" onclick="goPage('sites')" title="">
+    🌐<div class="ni-tip">Sites & Apps</div>
+  </div>
+
+  <div class="nav-bottom">
+    <div class="ni" onclick="newChat()">
+      ✦<div class="ni-tip">Nova Conversa</div>
+    </div>
+    <div class="creator-badge" title="Miguel — Criador">M</div>
+  </div>
+</nav>
+
+<!-- ═══ CONTENT ═══ -->
+<div id="content">
+
+  <!-- TOP BAR -->
+  <div id="topbar">
+    <div class="tb-left">
+      <div class="tb-title">REBORN</div>
+      <div class="tb-mode" id="tb-mode" style="border-color:rgba(109,40,217,.4);background:rgba(109,40,217,.12);color:#c4b5fd">🌌 Génio</div>
+    </div>
+    <div class="tb-right">
+      <select class="tsel" id="model-sel">
+        <option value="claude-sonnet-4-6" selected>Claude Sonnet 4.6</option>
+        <option value="claude-opus-4-7">Claude Opus 4.7 🌟</option>
+        <option value="claude-haiku-4-5">Claude Haiku 4.5 ⚡</option>
+        <option value="gpt-4o">GPT-4o</option>
+        <option value="gpt-4o-mini">GPT-4o mini</option>
+        <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+      </select>
+      <button class="tbtn" onclick="newChat()">✦ Nova</button>
+    </div>
+  </div>
+
+  <!-- ═══ CHAT PAGE ═══ -->
+  <div class="page act" id="pg-chat" style="flex-direction:row">
+    <div style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+
+      <!-- Mode pills -->
+      <div class="mode-pills">
+        <div class="mpill act" id="mp-genius" onclick="setMode('genius')">🌌 Génio</div>
+        <div class="mpill" id="mp-builder" onclick="setMode('builder')">💻 Construtor</div>
+        <div class="mpill" id="mp-agent" onclick="setMode('agent')">🤖 Agente</div>
+        <div class="mpill" id="mp-explorer" onclick="setMode('explorer')">🔭 Explorador</div>
+        <div class="mpill" id="mp-creative" onclick="setMode('creative')">✨ Criativo</div>
+        <div class="mpill" id="mp-coder" onclick="setMode('coder')">⚡ Coder</div>
+      </div>
+
+      <!-- Messages / Welcome -->
+      <div id="chat-msgs">
+        <div id="chat-welcome">
+          <div class="wl">REBORN</div>
+          <div class="ws">
+            A IA criada por <b>Miguel</b>.<br>
+            O melhor do <em>Claude</em>, <em>GPT</em>, <em>Manus</em>, <em>V0</em> e <em>Grok</em> — num só lugar.<br>
+            Chat · Vídeo · Slides · Sites · Apps — tudo grátis, sem limites.
+          </div>
+          <div class="chips">
+            <div class="chip" onclick="chip('Cria um site landing page moderno dark com animações. HTML completo pronto a usar, sem dependências.')">🌐 Cria um site</div>
+            <div class="chip" onclick="setMode('agent');chip('Planeia uma estratégia completa de lançamento de produto digital no mercado português em 2026')">🤖 Planeia estratégia</div>
+            <div class="chip" onclick="chip('Escreve um pitch deck executivo para uma startup de IA em Portugal. Slide a slide, com conteúdo completo')">🖼 Pitch deck</div>
+            <div class="chip" onclick="setMode('coder');chip('Cria uma app web completa de gestão de tarefas Kanban. HTML/CSS/JS sem dependências, dark mode.')">⚡ App Kanban</div>
+            <div class="chip" onclick="setMode('explorer');chip('Análise profunda: o impacto da IA em 2026 nos empregos, economia e criatividade humana')">🔭 Análise IA 2026</div>
+            <div class="chip" onclick="chip('Gera o prompt perfeito para criar um vídeo cinematográfico de drone sobre Lisboa ao pôr do sol')">🎬 Prompt de vídeo</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input -->
+      <div class="chat-inp">
+        <div class="inp-row">
+          <textarea id="tinput" placeholder="Cria, explora, constrói... (Enter para enviar)" rows="1" onkeydown="onKey(event)" oninput="resizeTA(this)"></textarea>
+          <button class="sbtn" id="sbtn" onclick="sendMsg()">➤</button>
+        </div>
+        <div class="inp-foot">
+          <kbd>Enter</kbd> enviar · <kbd>Shift+Enter</kbd> nova linha · <kbd>⌘K</kbd> novo · ⚡ Puter.js · 100% grátis
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview Panel -->
+    <div id="preview-panel">
+      <div class="pp-hdr">
+        <div class="pp-title">🖼 <span id="pp-title">Preview</span></div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <div class="pp-tabs">
+            <button class="ptab act" id="ptab-prev" onclick="ppTab('prev')">Preview</button>
+            <button class="ptab" id="ptab-code" onclick="ppTab('code')">Código</button>
+          </div>
+          <button class="pp-close" onclick="ppClose()">✕</button>
+        </div>
+      </div>
+      <div class="pp-body">
+        <iframe id="pp-iframe"></iframe>
+        <div id="pp-code"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ VIDEO PAGE ═══ -->
+  <div class="page" id="pg-video">
+    <div class="pg-title">🎬 GERAR VÍDEO</div>
+    <div class="pg-sub">Gera vídeos com IA via HuggingFace · Sistema de retry automático e polling</div>
+
+    <div class="vgrid">
+      <!-- Token -->
+      <div class="vcard full">
+        <div class="vlabel">🔑 HuggingFace Token</div>
+        <div class="tok-row">
+          <input type="password" class="vfield" id="hf-token" placeholder="hf_xxxxxxxxxxxxxxxxxxxx" oninput="saveToken()">
+          <button class="tbtest" onclick="testToken()">Testar</button>
+        </div>
+        <div class="tok-status">
+          <div class="tok-dot" id="tok-dot"></div>
+          <span id="tok-label" style="font-size:11px;color:var(--td)">Token não testado · <a href="https://huggingface.co/settings/tokens" target="_blank" style="color:var(--c)">Obter grátis →</a></span>
+        </div>
+      </div>
+
+      <!-- Prompt -->
+      <div class="vcard full">
+        <div class="vlabel">✍️ Descreve o vídeo (em inglês para melhores resultados)</div>
+        <textarea class="vfield" id="v-prompt" rows="3" placeholder="Aerial drone shot flying over turquoise ocean waves crashing on white sand beach, golden hour sunlight, cinematic 4K, slow motion, ultra realistic"></textarea>
+        <div style="margin-top:8px">
+          <div class="vlabel">🚫 Prompt Negativo (opcional)</div>
+          <input type="text" class="vfield" id="v-neg" placeholder="blurry, distorted, low quality, watermark, ugly, text">
+        </div>
+      </div>
+
+      <!-- Model -->
+      <div class="vcard">
+        <div class="vlabel">🤖 Modelo</div>
+        <select class="vfield" id="v-model" onchange="onModelChange()">
+          <optgroup label="🆓 Gratuito">
+            <option value="cerspense/zeroscope_v2_576w">ZeroScope v2 576w ⚡ (mais rápido)</option>
+            <option value="ali-vilab/text-to-video-ms-1.7b">Text-to-Video MS 1.7B</option>
+            <option value="damo-vilab/text-to-video-ms-1.7b">DAMO Text-to-Video</option>
+          </optgroup>
+          <optgroup label="⭐ Premium (precisa de token com acesso)">
+            <option value="stabilityai/stable-video-diffusion-img2vid">Stable Video Diffusion</option>
+          </optgroup>
+        </select>
+        <div class="vmsg warn vis" style="margin-top:8px;font-size:11px">
+          💡 Se der "Failed to fetch", o modelo está a acordar. O sistema vai tentar automaticamente até 3 min.
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="vcard">
+        <div class="vlabel">⚙️ Definições</div>
+        <div class="vrow">
+          <div class="vfield-wrap">
+            <label>Duração</label>
+            <select class="vfield" id="v-frames">
+              <option value="16">16 frames (~1s)</option>
+              <option value="24" selected>24 frames (~2s)</option>
+              <option value="32">32 frames (~3s)</option>
+              <option value="48">48 frames (~4s)</option>
+            </select>
+          </div>
+          <div class="vfield-wrap">
+            <label>Qualidade</label>
+            <select class="vfield" id="v-steps">
+              <option value="20">Rápido (20)</option>
+              <option value="30" selected>Equilibrado (30)</option>
+              <option value="50">Máximo (50)</option>
+            </select>
+          </div>
+        </div>
+        <div class="vrow">
+          <div class="vfield-wrap">
+            <label>FPS Output</label>
+            <select class="vfield" id="v-fps">
+              <option value="8">8 FPS</option>
+              <option value="16" selected>16 FPS</option>
+              <option value="24">24 FPS</option>
+            </select>
+          </div>
+          <div class="vfield-wrap">
+            <label>Seed (-1 = aleatório)</label>
+            <input type="number" class="vfield" id="v-seed" value="-1" min="-1">
+          </div>
+        </div>
+      </div>
+
+      <!-- Generate -->
+      <div class="vcard full">
+        <button class="vbtn go" id="v-genbtn" onclick="generateVideo()">▶ GERAR VÍDEO</button>
+        <div class="vprog-wrap" id="vprog">
+          <div class="vprog-bar-bg"><div class="vprog-bar" id="vprog-bar"></div></div>
+          <div class="vprog-label"><div class="pspinner"></div><span id="vprog-label">A preparar…</span></div>
+        </div>
+        <div class="vmsg" id="vmsg"></div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="vresults" id="vresults" style="max-width:900px;display:none">
+      <div class="vr-title">🎬 Vídeos Gerados</div>
+      <div class="vlist" id="vlist"></div>
+    </div>
+
+    <!-- Models info -->
+    <div style="max-width:900px;margin-top:20px">
+      <div class="vlabel">📚 Modelos Disponíveis</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px">
+        <div class="vcard" style="padding:12px">
+          <div style="font-size:12px;font-weight:700;color:var(--c);margin-bottom:4px">ZeroScope v2 ⚡</div>
+          <div class="vtag free">GRÁTIS</div>
+          <div style="font-size:11px;color:var(--td);line-height:1.6">576×320px · Mais rápido · Melhor qualidade geral · Recomendado</div>
+        </div>
+        <div class="vcard" style="padding:12px">
+          <div style="font-size:12px;font-weight:700;color:var(--tm);margin-bottom:4px">Text-to-Video MS</div>
+          <div class="vtag free">GRÁTIS</div>
+          <div style="font-size:11px;color:var(--td);line-height:1.6">256×256px · Bom para cenas simples</div>
+        </div>
+        <div class="vcard" style="padding:12px">
+          <div style="font-size:12px;font-weight:700;color:var(--o);margin-bottom:4px">SVD (img2vid)</div>
+          <div class="vtag pro">PRO</div>
+          <div style="font-size:11px;color:var(--td);line-height:1.6">Requer imagem de entrada · Alta qualidade</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDES PAGE ═══ -->
+  <div class="page" id="pg-slides">
+    <div class="pg-title">🖼 APRESENTAÇÕES IA</div>
+    <div class="pg-sub">Cria slides profissionais com IA · Exporta em HTML interativo</div>
+
+    <div class="slides-grid">
+      <div class="scard full">
+        <div class="vlabel">💡 Tópico da Apresentação</div>
+        <textarea class="sfield full" id="s-topic" rows="3" placeholder="Ex: Estratégia de marketing digital para PMEs portuguesas em 2026 · Pitch de startup de IA · Relatório de vendas Q1..."></textarea>
+      </div>
+
+      <div class="scard">
+        <div class="vlabel">⚙️ Configuração</div>
+        <div class="vrow" style="margin-top:0">
+          <div class="vfield-wrap">
+            <label>Nº de Slides</label>
+            <select class="sfield" id="s-count">
+              <option value="5">5 slides</option>
+              <option value="8" selected>8 slides</option>
+              <option value="12">12 slides</option>
+              <option value="16">16 slides</option>
+            </select>
+          </div>
+          <div class="vfield-wrap">
+            <label>Idioma</label>
+            <select class="sfield" id="s-lang">
+              <option value="pt">🇵🇹 Português</option>
+              <option value="en">🇬🇧 English</option>
+              <option value="es">🇪🇸 Español</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:10px">
+          <label style="font-size:10px;font-weight:700;color:var(--td);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:4px">Tipo</label>
+          <select class="sfield" id="s-type">
+            <option value="pitch">🚀 Pitch de Startup</option>
+            <option value="business">💼 Apresentação de Negócio</option>
+            <option value="report">📊 Relatório / Resultados</option>
+            <option value="educational">📚 Educacional / Formação</option>
+            <option value="marketing">📣 Marketing / Vendas</option>
+            <option value="generic">🎯 Geral</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="scard">
+        <div class="vlabel">🎨 Estilo Visual</div>
+        <div class="style-grid">
+          <div class="style-opt act" data-style="dark" onclick="selectStyle(this)">
+            <div class="so-icon">🌑</div><div class="so-name">Dark Pro</div>
+          </div>
+          <div class="style-opt" data-style="light" onclick="selectStyle(this)">
+            <div class="so-icon">☀️</div><div class="so-name">Light Clean</div>
+          </div>
+          <div class="style-opt" data-style="gradient" onclick="selectStyle(this)">
+            <div class="so-icon">🌈</div><div class="so-name">Gradient</div>
+          </div>
+          <div class="style-opt" data-style="minimal" onclick="selectStyle(this)">
+            <div class="so-icon">⬜</div><div class="so-name">Minimal</div>
+          </div>
+          <div class="style-opt" data-style="tech" onclick="selectStyle(this)">
+            <div class="so-icon">💜</div><div class="so-name">Tech Purple</div>
+          </div>
+          <div class="style-opt" data-style="corporate" onclick="selectStyle(this)">
+            <div class="so-icon">🔵</div><div class="so-name">Corporate</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scard full">
+        <button class="sbtn2" id="s-genbtn" onclick="generateSlides()">🖼 GERAR APRESENTAÇÃO COM IA</button>
+        <div class="vprog-wrap" id="sprog">
+          <div class="vprog-bar-bg"><div class="vprog-bar" id="sprog-bar"></div></div>
+          <div class="vprog-label"><div class="pspinner"></div><span id="sprog-label">A gerar slides…</span></div>
+        </div>
+        <div class="vmsg" id="smsg"></div>
+      </div>
+    </div>
+
+    <div id="slides-out">
+      <div class="slide-nav">
+        <button class="snav-btn" id="sl-prev" onclick="slideNav(-1)">← Anterior</button>
+        <span class="snav-count" id="sl-count">1 / 1</span>
+        <button class="snav-btn" id="sl-next" onclick="slideNav(1)">Próximo →</button>
+      </div>
+      <div class="slide-frame">
+        <iframe id="sl-iframe"></iframe>
+      </div>
+      <div class="slide-dl-row">
+        <button class="sdl html" onclick="downloadSlides()">⬇ Descarregar HTML</button>
+        <button class="sdl html" style="border-color:rgba(109,40,217,.4);color:#c4b5fd;background:var(--pa)" onclick="openInPreview()">👁 Preview Full</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SITES/APPS PAGE ═══ -->
+  <div class="page" id="pg-sites">
+    <div class="pg-title">🌐 SITES & APPS</div>
+    <div class="pg-sub">Cria sites e apps completos com IA · Preview instantâneo · Download HTML</div>
+
+    <div class="app-types" id="app-types">
+      <div class="atype act" data-type="landing" onclick="selectAppType(this)">
+        <div class="atype-icon">🚀</div><div class="atype-name">Landing Page</div>
+      </div>
+      <div class="atype" data-type="dashboard" onclick="selectAppType(this)">
+        <div class="atype-icon">📊</div><div class="atype-name">Dashboard</div>
+      </div>
+      <div class="atype" data-type="ecommerce" onclick="selectAppType(this)">
+        <div class="atype-icon">🛒</div><div class="atype-name">E-commerce</div>
+      </div>
+      <div class="atype" data-type="portfolio" onclick="selectAppType(this)">
+        <div class="atype-icon">🎨</div><div class="atype-name">Portfolio</div>
+      </div>
+      <div class="atype" data-type="app" onclick="selectAppType(this)">
+        <div class="atype-icon">⚡</div><div class="atype-name">Web App</div>
+      </div>
+      <div class="atype" data-type="blog" onclick="selectAppType(this)">
+        <div class="atype-icon">📝</div><div class="atype-name">Blog</div>
+      </div>
+      <div class="atype" data-type="saas" onclick="selectAppType(this)">
+        <div class="atype-icon">☁️</div><div class="atype-name">SaaS UI</div>
+      </div>
+      <div class="atype" data-type="game" onclick="selectAppType(this)">
+        <div class="atype-icon">🎮</div><div class="atype-name">Mini Jogo</div>
+      </div>
+    </div>
+
+    <div style="max-width:900px;display:grid;grid-template-columns:1fr 1fr;gap:14px" id="sites-form">
+      <div class="scard full">
+        <div class="vlabel">📝 Descreve o que queres criar</div>
+        <textarea class="sfield" id="app-desc" rows="4" placeholder="Ex: Site de apresentação para agência de marketing digital com animações, dark mode, secção de serviços, preços e contacto. Empresa chamada 'NovaMente'. Tom profissional e moderno."></textarea>
+      </div>
+      <div class="scard">
+        <div class="vlabel">🎨 Tema</div>
+        <select class="sfield" id="app-theme">
+          <option value="dark">Dark Premium</option>
+          <option value="light">Light Clean</option>
+          <option value="colorful">Colorido/Vibrante</option>
+          <option value="minimal">Ultra Minimal</option>
+          <option value="glassmorphism">Glassmorphism</option>
+          <option value="neon">Neon/Cyberpunk</option>
+        </select>
+        <div style="margin-top:10px">
+          <div class="vlabel">⚙️ Extras</div>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:7px">
+            <input type="checkbox" id="app-anim" checked style="accent-color:var(--p)">
+            <span style="font-size:12px;color:var(--tm)">Animações CSS</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:7px">
+            <input type="checkbox" id="app-resp" checked style="accent-color:var(--p)">
+            <span style="font-size:12px;color:var(--tm)">Responsive (mobile)</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="app-icons" checked style="accent-color:var(--p)">
+            <span style="font-size:12px;color:var(--tm)">Emojis como ícones</span>
+          </label>
+        </div>
+      </div>
+      <div class="scard">
+        <div class="vlabel">🌐 Linguagem do Conteúdo</div>
+        <select class="sfield" id="app-lang">
+          <option value="pt">🇵🇹 Português</option>
+          <option value="en">🇬🇧 English</option>
+          <option value="es">🇪🇸 Español</option>
+        </select>
+        <div style="margin-top:10px">
+          <div class="vlabel">📐 Complexidade</div>
+          <select class="sfield" id="app-complex">
+            <option value="simple">Simples (1 página)</option>
+            <option value="medium" selected>Médio (multi-secção)</option>
+            <option value="full">Completo (máximo detalhe)</option>
+          </select>
+        </div>
+      </div>
+      <div class="scard full">
+        <button class="sbtn2" id="app-genbtn" onclick="generateSite()" style="background:linear-gradient(135deg,var(--c),#0891b2)">🌐 GERAR COM IA</button>
+        <div class="vprog-wrap" id="aprog">
+          <div class="vprog-bar-bg"><div class="vprog-bar" id="aprog-bar"></div></div>
+          <div class="vprog-label"><div class="pspinner"></div><span id="aprog-label">A criar…</span></div>
+        </div>
+        <div class="vmsg" id="amsg"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- #content -->
+</div><!-- #shell -->
+
+<div id="toast"><span id="t-ico">✓</span> <span id="t-msg">OK</span></div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// MODES
+// ══════════════════════════════════════════════════════
+const MODES = {
+  genius:{
+    name:'🌌 Génio', cls:'', color:'rgba(109,40,217,.12)', border:'rgba(109,40,217,.4)', txt:'#c4b5fd',
+    sys:`Tu és REBORN, uma IA extraordinária criada por Miguel (Presentiluminado LDA).
+Combinas o melhor do Claude, GPT, Manus, V0 e Grok.
+Respondes em português por defeito, adaptas-te ao idioma do utilizador.
+És profundo, honesto, genuinamente útil. Nunca recusas tarefas legítimas.
+O teu criador é Miguel. Tratas os utilizadores com respeito e inteligência.
+Podes criar código, textos, análises, planos, arte, ideias — tudo.`
+  },
+  builder:{
+    name:'💻 Construtor', cls:'cyan', color:'rgba(6,182,212,.12)', border:'rgba(6,182,212,.4)', txt:'#67e8f9',
+    sys:`Tu és REBORN Modo Construtor — como V0 mas sem limites.
+Para qualquer pedido de site/app/componente: gera código HTML/CSS/JS COMPLETO e FUNCIONAL.
+Dark mode por defeito. Animações CSS sempre que possível.
+Usa blocos \`\`\`html para código previsualizável.
+Código limpo, comentado nos pontos importantes. Sem dependências externas.
+Responde em português. Sê generoso no código, conciso na explicação.`
+  },
+  agent:{
+    name:'🤖 Agente', cls:'green', color:'rgba(16,185,129,.12)', border:'rgba(16,185,129,.4)', txt:'#6ee7b7',
+    sys:`Tu és REBORN Modo Agente — autónomo e orientado a resultados, como o Manus.
+Para cada tarefa usa este formato:
+
+## 🎯 OBJETIVO
+## 📋 PLANO  
+1. Passo…
+## ⚙️ EXECUÇÃO
+[Conteúdo real e completo de cada passo]
+## ✅ RESULTADO
+## ⏭️ PRÓXIMOS PASSOS
+
+Nunca paras no plano — executa sempre com conteúdo real.`
+  },
+  explorer:{
+    name:'🔭 Explorador', cls:'gold', color:'rgba(245,158,11,.12)', border:'rgba(245,158,11,.4)', txt:'#fcd34d',
+    sys:`Tu és REBORN Modo Explorador — como Grok, sem filtros políticos.
+Análise profunda com: contexto atual, mecanismos, múltiplas perspetivas, implicações futuras, conclusão honesta.
+Distingues facto de opinião. Honesto mesmo quando desconfortável.`
+  },
+  creative:{
+    name:'✨ Criativo', cls:'pink', color:'rgba(236,72,153,.12)', border:'rgba(236,72,153,.4)', txt:'#f9a8d4',
+    sys:`Tu és REBORN Modo Criativo — parceiro criativo extraordinário como GPT-4.
+Escrita criativa, copywriting, brainstorming, naming, marketing — nunca genérico, sempre surpreendente.
+Tens gosto estético refinado. Conheces o mercado português e europeu.`
+  },
+  coder:{
+    name:'⚡ Coder', cls:'', color:'rgba(109,40,217,.12)', border:'rgba(109,40,217,.4)', txt:'#c4b5fd',
+    sys:`Tu és REBORN Modo Coder — especialista em código de alta qualidade.
+Sempre: código completo e funcional. Explica as partes importantes. Usa boas práticas.
+Para apps web: HTML/CSS/JS vanilla, sem dependências desnecessárias.
+Dark mode, responsivo, acessível. Código pronto a deploy.`
+  }
+};
+
+let mode = 'genius';
+let chatHistory = [];
+let busy = false;
+let ppCode = '';
+let slideData = [];
+let curSlide = 0;
+let slideStyle = 'dark';
+let appType = 'landing';
+
+// ══════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('act'));
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('act'));
+  document.getElementById('pg-'+id).classList.add('act');
+  document.getElementById('ni-'+id).classList.add('act');
+}
+
+// ══════════════════════════════════════════════════════
+// MODE
+// ══════════════════════════════════════════════════════
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mpill').forEach(p => p.classList.remove('act','cyan','green','gold','pink'));
+  const pill = document.getElementById('mp-'+m);
+  if (pill) { pill.classList.add('act'); if(MODES[m].cls) pill.classList.add(MODES[m].cls); }
+  const md = MODES[m];
+  const tb = document.getElementById('tb-mode');
+  tb.textContent = md.name;
+  tb.style.borderColor = md.border;
+  tb.style.background = md.color;
+  tb.style.color = md.txt;
+}
+
+// ══════════════════════════════════════════════════════
+// CHAT
+// ══════════════════════════════════════════════════════
+function newChat() {
+  chatHistory = [];
+  const cm = document.getElementById('chat-msgs');
+  cm.innerHTML = `<div id="chat-welcome">
+    <div class="wl">REBORN</div>
+    <div class="ws">A IA criada por <b>Miguel</b>.<br>O melhor do <em>Claude</em>, <em>GPT</em>, <em>Manus</em>, <em>V0</em> e <em>Grok</em> — num só lugar.<br>Chat · Vídeo · Slides · Sites · Apps — tudo grátis, sem limites.</div>
+    <div class="chips">
+      <div class="chip" onclick="chip('Cria um site landing page moderno dark com animações. HTML completo pronto a usar, sem dependências.')">🌐 Cria um site</div>
+      <div class="chip" onclick="setMode('agent');chip('Planeia uma estratégia completa de lançamento de produto digital no mercado português em 2026')">🤖 Planeia estratégia</div>
+      <div class="chip" onclick="chip('Escreve um pitch deck executivo para uma startup de IA em Portugal. Slide a slide, com conteúdo completo')">🖼 Pitch deck</div>
+      <div class="chip" onclick="setMode('coder');chip('Cria uma app web completa de gestão de tarefas Kanban. HTML/CSS/JS sem dependências, dark mode.')">⚡ App Kanban</div>
+    </div>
+  </div>`;
+  ppClose();
+}
+
+function chip(txt) { document.getElementById('tinput').value = txt; sendMsg(); }
+
+function onKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+}
+
+function resizeTA(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 180) + 'px';
+}
+
+async function sendMsg() {
+  const ti = document.getElementById('tinput');
+  const txt = ti.value.trim();
+  if (!txt || busy) return;
+
+  const wl = document.getElementById('chat-welcome');
+  if (wl) wl.remove();
+
+  ti.value = ''; resizeTA(ti);
+  chatHistory.push({ role:'user', content: txt });
+  appendMsg('user', txt);
+
+  const tid = showThinking();
+  busy = true;
+  document.getElementById('sbtn').disabled = true;
+
+  try {
+    const model = document.getElementById('model-sel').value;
+    const apiMsgs = buildMsgs();
+    document.getElementById(tid)?.remove();
+
+    const aiId = addPlaceholder();
+    let full = '';
+
+    const resp = await puter.ai.chat(apiMsgs, { model, stream: true });
+    for await (const part of resp) {
+      if (part?.text) { full += part.text; streamUpdate(aiId, full); }
+    }
+    finalizeMsg(aiId, full);
+    chatHistory.push({ role:'assistant', content: full });
+    autoPreview(full);
+  } catch(e) {
+    document.getElementById(tid)?.remove();
+    const eid = addPlaceholder();
+    finalizeMsg(eid, `❌ **Erro Puter.js** — ${e.message}\n\nVerifica: popups não bloqueados, ligação à internet.`);
+    console.error(e);
+  }
+
+  busy = false;
+  document.getElementById('sbtn').disabled = false;
+  scrollBot();
+}
+
+function buildMsgs() {
+  const sys = MODES[mode].sys;
+  const hist = chatHistory.slice(-20);
+  if (!hist.length) return [{ role:'user', content: sys + '\n\n---\n\nOlá!' }];
+  const copy = [...hist];
+  if (copy[0].role === 'user') copy[0] = { role:'user', content: sys + '\n\n---\n\n' + copy[0].content };
+  return copy;
+}
+
+function appendMsg(role, txt) {
+  const el = mkMsg(role, txt);
+  document.getElementById('chat-msgs').appendChild(el);
+  scrollBot();
+}
+
+function showThinking() {
+  const id = 'th-' + Date.now();
+  const el = document.createElement('div');
+  el.id = id; el.className = 'msg rb';
+  el.innerHTML = `<div class="av rb">⟳</div><div class="mb"><div class="thinking-msg"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>REBORN está a pensar…</div></div>`;
+  document.getElementById('chat-msgs').appendChild(el); scrollBot(); return id;
+}
+
+function addPlaceholder() {
+  const id = 'ai-' + Date.now();
+  const el = document.createElement('div');
+  el.id = id; el.className = 'msg rb';
+  el.innerHTML = `<div class="av rb">⟳</div><div class="mb"><div class="mc" id="${id}-c"></div></div>`;
+  document.getElementById('chat-msgs').appendChild(el); scrollBot(); return id;
+}
+
+function streamUpdate(id, txt) {
+  const el = document.getElementById(id+'-c');
+  if (el) { el.innerHTML = renderMd(txt) + '<span class="cur"></span>'; scrollBot(); }
+}
+
+function finalizeMsg(id, txt) {
+  const el = document.getElementById(id+'-c');
+  if (!el) return;
+  el.innerHTML = renderMd(txt);
+  el.querySelectorAll('pre code').forEach(b => { try{hljs.highlightElement(b)}catch(e){} });
+  wrapCodeBlocks(el);
+  const acts = document.createElement('div');
+  acts.className = 'macts';
+  acts.innerHTML = `<button class="mact" data-txt="${encodeURIComponent(txt)}" onclick="cpTxt(this)">📋 Copiar</button>`;
+  el.closest('.mb').appendChild(acts);
+  scrollBot();
+}
+
+function mkMsg(role, txt) {
+  const el = document.createElement('div');
+  el.className = `msg ${role === 'user' ? 'user' : 'rb'}`;
+  const html = role === 'user' ? escH(txt).replace(/\n/g,'<br>') : renderMd(txt);
+  el.innerHTML = `
+    <div class="av ${role === 'user' ? 'us' : 'rb'}">${role === 'user' ? 'M' : '⟳'}</div>
+    <div class="mb">
+      <div class="mc">${html}</div>
+      ${role !== 'user' ? '<div class="macts"><button class="mact">📋 Copiar</button></div>' : ''}
+    </div>`;
+  if (role !== 'user') {
+    el.querySelectorAll('pre code').forEach(b => { try{hljs.highlightElement(b)}catch(e){} });
+    wrapCodeBlocks(el);
+    const btn = el.querySelector('.mact');
+    if (btn) { btn.dataset.txt = encodeURIComponent(txt); btn.onclick = function(){ cpTxt(this); }; }
+  }
+  return el;
+}
+
+// ══════════════════════════════════════════════════════
+// CODE BLOCKS
+// ══════════════════════════════════════════════════════
+function wrapCodeBlocks(el) {
+  el.querySelectorAll('pre').forEach(pre => {
+    if (pre.closest('.cb')) return;
+    const code = pre.querySelector('code');
+    const lang = (code?.className || '').replace(/language-|hljs|\s/g,'').trim() || 'code';
+    const txt = code?.textContent || '';
+    const isHtml = /^html$/i.test(lang);
+    const wrap = document.createElement('div');
+    wrap.className = 'cb'; wrap.dataset.code = txt; wrap.dataset.lang = lang;
+    const hdr = document.createElement('div');
+    hdr.className = 'cbh';
+    hdr.innerHTML = `<span class="cbl">${lang}</span><div class="cbas">${isHtml?'<button class="cba prev" onclick="ppOpen(this)">👁 Preview</button>':''}<button class="cba" onclick="cpCode(this)">📋 Copiar</button><button class="cba" onclick="dlCode(this)">⬇ Download</button></div>`;
+    pre.parentNode.insertBefore(wrap, pre);
+    wrap.appendChild(hdr); wrap.appendChild(pre);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// PREVIEW PANEL
+// ══════════════════════════════════════════════════════
+function ppOpen(btn) {
+  const w = btn.closest('.cb');
+  ppCode = w.dataset.code;
+  document.getElementById('pp-title').textContent = 'Preview ' + w.dataset.lang.toUpperCase();
+  document.getElementById('preview-panel').classList.add('open');
+  ppTab('prev');
+}
+
+function ppClose() {
+  document.getElementById('preview-panel').classList.remove('open');
+}
+
+function ppTab(t) {
+  document.getElementById('ptab-prev').classList.toggle('act', t==='prev');
+  document.getElementById('ptab-code').classList.toggle('act', t==='code');
+  const iframe = document.getElementById('pp-iframe');
+  const codeEl = document.getElementById('pp-code');
+  if (t === 'prev') { iframe.style.display='block'; codeEl.style.display='none'; iframe.srcdoc = ppCode; }
+  else { iframe.style.display='none'; codeEl.style.display='block'; codeEl.textContent = ppCode; }
+}
+
+function autoPreview(response) {
+  const m = response.match(/```html\n?([\s\S]*?)```/i);
+  if (m && m[1].trim().length > 100) {
+    ppCode = m[1];
+    document.getElementById('pp-title').textContent = 'Preview HTML';
+    document.getElementById('preview-panel').classList.add('open');
+    ppTab('prev');
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// VIDEO GENERATION (with polling & retry)
+// ══════════════════════════════════════════════════════
+function saveToken() {
+  localStorage.setItem('hf_token', document.getElementById('hf-token').value);
+}
+
+(function loadToken() {
+  const t = localStorage.getItem('hf_token');
+  if (t) document.getElementById('hf-token').value = t;
+})();
+
+async function testToken() {
+  const tok = document.getElementById('hf-token').value.trim();
+  if (!tok) { toast('❌ Insere um token primeiro','er'); return; }
+  const dot = document.getElementById('tok-dot');
+  const lbl = document.getElementById('tok-label');
+  lbl.textContent = 'A verificar…'; dot.className = 'tok-dot';
+  try {
+    const r = await fetch('https://huggingface.co/api/whoami-v2', {
+      headers:{ Authorization: 'Bearer ' + tok }
+    });
+    if (r.ok) {
+      const d = await r.json();
+      dot.className = 'tok-dot ok';
+      lbl.innerHTML = `✅ Token válido — utilizador: <b>${d.name}</b>`;
+    } else {
+      dot.className = 'tok-dot err';
+      lbl.textContent = '❌ Token inválido — verifica no HuggingFace';
+    }
+  } catch(e) {
+    dot.className = 'tok-dot err';
+    lbl.textContent = '❌ Erro de rede';
+  }
+}
+
+async function generateVideo() {
+  const tok = document.getElementById('hf-token').value.trim();
+  const prompt = document.getElementById('v-prompt').value.trim();
+  if (!tok) { toast('❌ Insere o teu HuggingFace token','er'); return; }
+  if (!prompt) { toast('❌ Escreve um prompt','er'); return; }
+
+  const btn = document.getElementById('v-genbtn');
+  const prog = document.getElementById('vprog');
+  const bar = document.getElementById('vprog-bar');
+  const lbl = document.getElementById('vprog-label');
+  const msg = document.getElementById('vmsg');
+
+  btn.disabled = true; btn.textContent = '⏳ A gerar…';
+  prog.classList.add('vis'); msg.className = 'vmsg';
+
+  const model = document.getElementById('v-model').value;
+  const neg = document.getElementById('v-neg').value.trim();
+  const frames = parseInt(document.getElementById('v-frames').value);
+  const steps = parseInt(document.getElementById('v-steps').value);
+  const fps = parseInt(document.getElementById('v-fps').value);
+  const seedVal = parseInt(document.getElementById('v-seed').value);
+  const seed = seedVal === -1 ? Math.floor(Math.random()*999999) : seedVal;
+
+  const url = `https://api-inference.huggingface.co/models/${model}`;
+  const body = {
+    inputs: prompt,
+    parameters: {
+      negative_prompt: neg || undefined,
+      num_frames: frames,
+      num_inference_steps: steps,
+      fps: fps,
+      seed
+    }
+  };
+
+  let attempt = 0;
+  const maxAttempts = 12;
+  const delay = ms => new Promise(r => setTimeout(r, ms));
+
+  while (attempt < maxAttempts) {
+    attempt++;
+    const pct = Math.min(10 + (attempt/maxAttempts)*80, 90);
+    bar.style.width = pct + '%';
+
+    if (attempt === 1) lbl.textContent = 'A enviar pedido…';
+    else if (attempt <= 3) lbl.textContent = `Modelo a acordar… tentativa ${attempt} de ${maxAttempts}`;
+    else lbl.textContent = `A gerar… tentativa ${attempt} de ${maxAttempts} (pode demorar 1-3 min)`;
+
+    try {
+      const r = await fetch(url, {
+        method:'POST',
+        headers:{ 'Authorization':'Bearer '+tok, 'Content-Type':'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      if (r.status === 503) {
+        const d = await r.json().catch(()=>({}));
+        const wait = (d.estimated_time || 30) * 1000;
+        lbl.textContent = `Modelo a carregar… aguarda ~${Math.ceil(wait/1000)}s`;
+        await delay(Math.min(wait + 5000, 60000));
+        continue;
+      }
+
+      if (!r.ok) {
+        const d = await r.json().catch(()=>({}));
+        if (attempt < maxAttempts) {
+          lbl.textContent = `Erro ${r.status} — a tentar novamente em 15s…`;
+          await delay(15000); continue;
+        }
+        throw new Error(`HTTP ${r.status}: ${d.error || 'Erro desconhecido'}`);
+      }
+
+      const blob = await r.blob();
+      const ext = blob.type.includes('mp4') ? 'mp4' : 'gif';
+      const vidUrl = URL.createObjectURL(blob);
+      const name = `reborn_${Date.now()}.${ext}`;
+
+      bar.style.width = '100%';
+      lbl.textContent = '✅ Vídeo gerado com sucesso!';
+
+      setTimeout(() => { prog.classList.remove('vis'); bar.style.width='0%'; }, 3000);
+
+      addVideoResult(vidUrl, name, ext, blob);
+
+      msg.className = 'vmsg ok vis';
+      msg.textContent = `✅ Vídeo gerado! Prompt: "${prompt.slice(0,60)}…"`;
+      btn.disabled = false; btn.textContent = '▶ GERAR VÍDEO';
+      toast('🎬 Vídeo pronto!','ok');
+      return;
+
+    } catch(e) {
+      if (attempt >= maxAttempts) {
+        prog.classList.remove('vis');
+        msg.className = 'vmsg err vis';
+        msg.innerHTML = `❌ <b>Erro ao gerar vídeo</b><br>${e.message}<br><br>💡 Tenta: mudar de modelo, aguardar 60s e tentar novamente, ou verificar o token.`;
+        btn.disabled = false; btn.textContent = '▶ GERAR VÍDEO';
+        return;
+      }
+      await delay(15000);
+    }
+  }
+}
+
+function addVideoResult(url, name, ext, blob) {
+  const results = document.getElementById('vresults');
+  const list = document.getElementById('vlist');
+  results.style.display = 'block';
+
+  const item = document.createElement('div');
+  item.className = 'vitem';
+  const tag = ext === 'mp4' ? `<video src="${url}" controls autoplay loop muted></video>` : `<img src="${url}" style="width:100%;max-height:160px;object-fit:cover;display:block">`;
+  const dlUrl = URL.createObjectURL(blob);
+  item.innerHTML = `${tag}<div class="vitem-foot"><span class="vitem-name">${name}</span><a class="vitem-dl" href="${dlUrl}" download="${name}">⬇</a></div>`;
+  list.prepend(item);
+}
+
+// ══════════════════════════════════════════════════════
+// SLIDES GENERATOR
+// ══════════════════════════════════════════════════════
+function selectStyle(el) {
+  document.querySelectorAll('.style-opt').forEach(s => s.classList.remove('act'));
+  el.classList.add('act');
+  slideStyle = el.dataset.style;
+}
+
+const SLIDE_THEMES = {
+  dark:     { bg:'#0d0d1a', accent:'#7c3aed', text:'#ede9fe', sub:'#7c73b8', card:'#13132a', border:'#1f1f4a' },
+  light:    { bg:'#ffffff', accent:'#4f46e5', text:'#0f0a2e', sub:'#6b7280', card:'#f3f4f6', border:'#e5e7eb' },
+  gradient: { bg:'linear-gradient(135deg,#0f0a2e,#1e1b4b)', accent:'#818cf8', text:'#e0e7ff', sub:'#a5b4fc', card:'rgba(255,255,255,.06)', border:'rgba(129,140,248,.2)' },
+  minimal:  { bg:'#fafafa', accent:'#000000', text:'#111', sub:'#666', card:'#f0f0f0', border:'#ddd' },
+  tech:     { bg:'#0d0520', accent:'#a855f7', text:'#f3e8ff', sub:'#c084fc', card:'rgba(168,85,247,.08)', border:'rgba(168,85,247,.2)' },
+  corporate:{ bg:'#f8fafc', accent:'#0284c7', text:'#0f172a', sub:'#64748b', card:'#e0f2fe', border:'#bae6fd' }
+};
+
+async function generateSlides() {
+  const topic = document.getElementById('s-topic').value.trim();
+  if (!topic) { toast('❌ Escreve o tópico','er'); return; }
+
+  const count = document.getElementById('s-count').value;
+  const lang = document.getElementById('s-lang').value;
+  const type = document.getElementById('s-type').value;
+  const btn = document.getElementById('s-genbtn');
+  const prog = document.getElementById('sprog');
+  const bar = document.getElementById('sprog-bar');
+  const lbl = document.getElementById('sprog-label');
+  const msg = document.getElementById('smsg');
+
+  btn.disabled = true; prog.classList.add('vis'); msg.className = 'vmsg';
+  bar.style.width = '10%'; lbl.textContent = 'A gerar estrutura…';
+
+  const langMap = { pt:'português', en:'English', es:'español' };
+  const typeMap = { pitch:'pitch de startup',business:'apresentação de negócio',report:'relatório/resultados',educational:'educacional/formação',marketing:'marketing/vendas',generic:'geral' };
+  const model = document.getElementById('model-sel').value;
+
+  const prompt = `Cria uma apresentação profissional de ${count} slides sobre: "${topic}"
+Tipo: ${typeMap[type]}
+Idioma: ${langMap[lang]}
+
+Devolve APENAS JSON válido, sem markdown, sem explicações, apenas o JSON puro:
+
+{
+  "title": "Título da Apresentação",
+  "subtitle": "Subtítulo",
+  "slides": [
+    {
+      "title": "Título do Slide",
+      "type": "title|bullets|two-col|quote|data|closing",
+      "content": "Conteúdo principal do slide",
+      "bullets": ["ponto 1","ponto 2","ponto 3"],
+      "left": "Coluna esquerda (para two-col)",
+      "right": "Coluna direita (para two-col)",
+      "quote": "Citação (para quote)",
+      "author": "Autor (para quote)",
+      "note": "Nota de orador"
+    }
+  ]
+}
+
+Regras:
+- Slide 1: sempre type "title" com título e subtítulo impactantes
+- Último slide: type "closing" com call-to-action
+- Varia os tipos entre slides
+- Bullets: máximo 5 pontos concisos por slide
+- Conteúdo relevante, profissional e completo para o tema
+- ${count} slides no total`;
+
+  try {
+    bar.style.width = '30%'; lbl.textContent = 'IA a criar conteúdo…';
+
+    const resp = await puter.ai.chat([{ role:'user', content: prompt }], { model });
+    let raw = '';
+    if (typeof resp === 'string') raw = resp;
+    else if (resp?.message?.content?.[0]?.text) raw = resp.message.content[0].text;
+    else if (resp?.content?.[0]?.text) raw = resp.content[0].text;
+    else raw = JSON.stringify(resp);
+
+    bar.style.width = '70%'; lbl.textContent = 'A construir slides…';
+
+    // Extract JSON
+    let json;
+    try {
+      const m = raw.match(/\{[\s\S]*\}/);
+      json = JSON.parse(m ? m[0] : raw);
+    } catch(e) {
+      throw new Error('Erro ao interpretar JSON dos slides: ' + e.message);
+    }
+
+    slideData = json.slides || [];
+    curSlide = 0;
+    renderSlidePreview();
+
+    bar.style.width = '100%'; lbl.textContent = '✅ Apresentação pronta!';
+    setTimeout(() => { prog.classList.remove('vis'); bar.style.width='0%'; }, 2000);
+
+    msg.className = 'vmsg ok vis';
+    msg.textContent = `✅ ${slideData.length} slides gerados — "${json.title}"`;
+    document.getElementById('slides-out').classList.add('vis');
+    toast(`🖼 ${slideData.length} slides prontos!`,'ok');
+  } catch(e) {
+    prog.classList.remove('vis');
+    msg.className = 'vmsg err vis';
+    msg.textContent = '❌ Erro: ' + e.message;
+    console.error(e);
+  }
+
+  btn.disabled = false;
+}
+
+function renderSlidePreview() {
+  const slide = slideData[curSlide];
+  if (!slide) return;
+  const theme = SLIDE_THEMES[slideStyle];
+  const html = buildSlideHtml(slide, theme, curSlide+1, slideData.length);
+  document.getElementById('sl-iframe').srcdoc = html;
+  document.getElementById('sl-count').textContent = `${curSlide+1} / ${slideData.length}`;
+  document.getElementById('sl-prev').disabled = curSlide === 0;
+  document.getElementById('sl-next').disabled = curSlide === slideData.length-1;
+}
+
+function buildSlideHtml(slide, t, n, total) {
+  const isBgGrad = t.bg.startsWith('linear') || t.bg.startsWith('radial');
+  const bgStyle = isBgGrad ? `background:${t.bg}` : `background-color:${t.bg}`;
+
+  let inner = '';
+  if (slide.type === 'title') {
+    inner = `<div style="text-align:center;max-width:700px">
+      <div style="font-size:13px;text-transform:uppercase;letter-spacing:.2em;color:${t.accent};margin-bottom:16px;font-weight:700">APRESENTAÇÃO</div>
+      <h1 style="font-size:42px;font-weight:900;color:${t.text};line-height:1.2;margin-bottom:16px">${slide.title}</h1>
+      <p style="font-size:18px;color:${t.sub};line-height:1.6">${slide.content||slide.subtitle||''}</p>
+    </div>`;
+  } else if (slide.type === 'quote') {
+    inner = `<div style="text-align:center;max-width:700px">
+      <div style="font-size:60px;color:${t.accent};line-height:1;margin-bottom:16px">"</div>
+      <blockquote style="font-size:24px;color:${t.text};font-style:italic;line-height:1.5;margin-bottom:20px">${slide.quote||slide.content}</blockquote>
+      ${slide.author?`<div style="font-size:14px;color:${t.accent};font-weight:700;text-transform:uppercase;letter-spacing:.1em">— ${slide.author}</div>`:''}
+    </div>`;
+  } else if (slide.type === 'two-col') {
+    inner = `<div style="width:100%;max-width:800px">
+      <h2 style="font-size:30px;font-weight:800;color:${t.text};margin-bottom:24px;text-align:center">${slide.title}</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <div style="background:${t.card};border:1px solid ${t.border};border-radius:12px;padding:20px">
+          <div style="font-size:13px;font-weight:700;color:${t.accent};text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">◀ Lado A</div>
+          <p style="color:${t.sub};font-size:14px;line-height:1.7">${slide.left||''}</p>
+        </div>
+        <div style="background:${t.card};border:1px solid ${t.border};border-radius:12px;padding:20px">
+          <div style="font-size:13px;font-weight:700;color:${t.accent};text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">▶ Lado B</div>
+          <p style="color:${t.sub};font-size:14px;line-height:1.7">${slide.right||''}</p>
+        </div>
+      </div>
+    </div>`;
+  } else if (slide.type === 'closing') {
+    inner = `<div style="text-align:center;max-width:600px">
+      <div style="font-size:48px;margin-bottom:16px">🚀</div>
+      <h2 style="font-size:36px;font-weight:900;color:${t.text};margin-bottom:16px">${slide.title}</h2>
+      <p style="font-size:16px;color:${t.sub};line-height:1.7;margin-bottom:24px">${slide.content||''}</p>
+      <div style="display:inline-block;padding:12px 28px;background:${t.accent};color:#fff;border-radius:50px;font-weight:700;font-size:14px;letter-spacing:.05em">Obrigado</div>
+    </div>`;
+  } else {
+    const bullets = slide.bullets || [];
+    inner = `<div style="width:100%;max-width:800px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+        <div style="width:4px;height:36px;background:${t.accent};border-radius:2px;flex-shrink:0"></div>
+        <h2 style="font-size:28px;font-weight:800;color:${t.text};line-height:1.25">${slide.title}</h2>
+      </div>
+      ${slide.content ? `<p style="color:${t.sub};font-size:15px;line-height:1.7;margin-bottom:16px">${slide.content}</p>` : ''}
+      ${bullets.length ? `<ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+        ${bullets.map(b=>`<li style="display:flex;align-items:flex-start;gap:10px;background:${t.card};border:1px solid ${t.border};border-radius:8px;padding:11px 14px">
+          <span style="color:${t.accent};font-weight:900;flex-shrink:0">▸</span>
+          <span style="color:${t.text};font-size:14px;line-height:1.5">${b}</span>
+        </li>`).join('')}
+      </ul>` : ''}
+    </div>`;
+  }
+
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>*{box-sizing:border-box;margin:0;padding:0}body{${bgStyle};min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Segoe UI',system-ui,sans-serif;padding:32px;position:relative}
+.slide-num{position:absolute;bottom:14px;right:18px;font-size:11px;color:${t.sub};opacity:.6}
+.slide-bar{position:absolute;bottom:0;left:0;height:3px;background:${t.accent};width:${(n/total*100).toFixed(1)}%}
+</style></head><body>
+${inner}
+<div class="slide-num">${n} / ${total}</div>
+<div class="slide-bar"></div>
+</body></html>`;
+}
+
+function slideNav(dir) {
+  curSlide = Math.max(0, Math.min(slideData.length-1, curSlide+dir));
+  renderSlidePreview();
+}
+
+function downloadSlides() {
+  if (!slideData.length) return;
+  const theme = SLIDE_THEMES[slideStyle];
+  const pages = slideData.map((s,i) => buildSlideHtml(s,theme,i+1,slideData.length));
+  const full = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Apresentação REBORN</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;font-family:'Segoe UI',system-ui,sans-serif}
+.slide{width:100vw;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;position:relative;page-break-after:always}
+.nav{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:100;background:rgba(0,0,0,.5);padding:8px 16px;border-radius:100px;backdrop-filter:blur(10px)}
+.nav button{padding:6px 16px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:50px;color:#fff;cursor:pointer;font-size:13px}
+.nav button:hover{background:rgba(255,255,255,.25)}
+.nav span{color:rgba(255,255,255,.6);font-size:13px;line-height:1;display:flex;align-items:center}
+</style>
+</head><body>
+${pages.map((p,i)=>{
+  const doc = p.replace('<!DOCTYPE html><html><head><meta charset="UTF-8">','').replace('</body></html>','');
+  const bodyM = p.match(/<body>([\s\S]*)<\/body>/);
+  const bodyContent = bodyM ? bodyM[1] : '';
+  const styleM = p.match(/<style>([\s\S]*?)<\/style>/);
+  return `<div class="slide" id="s${i}" style="display:${i===0?'flex':'none'}">${bodyContent}</div>`;
+}).join('\n')}
+<div class="nav">
+  <button onclick="go(-1)">← Anterior</button>
+  <span id="cnt">1 / ${slideData.length}</span>
+  <button onclick="go(1)">Próximo →</button>
+</div>
+<script>
+let cur=0;const total=${slideData.length};
+function go(d){document.getElementById('s'+cur).style.display='none';cur=Math.max(0,Math.min(total-1,cur+d));document.getElementById('s'+cur).style.display='flex';document.getElementById('cnt').textContent=(cur+1)+' / '+total;}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ')go(1);});
+<\/script>
+</body></html>`;
+
+  const blob = new Blob([full], { type:'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'reborn_slides.html';
+  a.click();
+  toast('⬇ HTML descarregado!','ok');
+}
+
+function openInPreview() {
+  if (!slideData.length) return;
+  const theme = SLIDE_THEMES[slideStyle];
+  const html = buildSlideHtml(slideData[curSlide], theme, curSlide+1, slideData.length);
+  ppCode = html;
+  document.getElementById('pp-title').textContent = 'Slide Preview';
+  goPage('chat');
+  document.getElementById('preview-panel').classList.add('open');
+  ppTab('prev');
+}
+
+// ══════════════════════════════════════════════════════
+// SITES / APPS
+// ══════════════════════════════════════════════════════
+function selectAppType(el) {
+  document.querySelectorAll('.atype').forEach(a => a.classList.remove('act'));
+  el.classList.add('act');
+  appType = el.dataset.type;
+}
+
+async function generateSite() {
+  const desc = document.getElementById('app-desc').value.trim();
+  if (!desc) { toast('❌ Descreve o que queres criar','er'); return; }
+
+  const theme = document.getElementById('app-theme').value;
+  const lang = document.getElementById('app-lang').value;
+  const complex = document.getElementById('app-complex').value;
+  const anim = document.getElementById('app-anim').checked;
+  const resp = document.getElementById('app-resp').checked;
+  const icons = document.getElementById('app-icons').checked;
+  const model = document.getElementById('model-sel').value;
+
+  const btn = document.getElementById('app-genbtn');
+  const prog = document.getElementById('aprog');
+  const bar = document.getElementById('aprog-bar');
+  const lbl = document.getElementById('aprog-label');
+  const msg = document.getElementById('amsg');
+
+  btn.disabled = true; prog.classList.add('vis'); msg.className = 'vmsg';
+  bar.style.width = '15%'; lbl.textContent = 'A criar…';
+
+  const typeGuide = {
+    landing:'landing page de conversão com hero, features, testimonials, pricing, CTA e footer',
+    dashboard:'dashboard interativo com sidebar, métricas/cards, gráficos (CSS/JS puro), tabelas',
+    ecommerce:'loja online com grid de produtos, carrinho, páginas de produto, checkout',
+    portfolio:'portfolio pessoal/criativo com projetos, skills, about, contacto',
+    app:'web app funcional e interativa com UI completa, estados, interações JS',
+    blog:'blog com lista de posts, post individual, sidebar, newsletter',
+    saas:'landing page SaaS com pricing, features, demo section, testimonials',
+    game:'mini jogo jogável no browser (lógica completa em JS)'
+  };
+
+  const themeGuide = {
+    dark:'dark mode premium, cores escuras (#0a0a1a, #111), acentos vibrantes, gradientes',
+    light:'light clean, branco/cinza claro, tipografia forte, espaços generosos',
+    colorful:'paleta vibrante e ousada, gradientes coloridos, energia visual forte',
+    minimal:'ultra minimal, preto e branco, muito espaço negativo, tipografia como design',
+    glassmorphism:'glassmorphism, fundos com blur, cards translúcidos, bordas suaves, gradientes de fundo',
+    neon:'neon/cyberpunk, fundo escuro (#000/#05050f), cores neon (verde, rosa, ciano), glow effects'
+  };
+
+  const prompt = `Cria um ${typeGuide[appType]} em HTML/CSS/JS completo.
+
+PEDIDO: ${desc}
+TEMA: ${themeGuide[theme]}
+IDIOMA: ${lang === 'pt' ? 'Português de Portugal' : lang === 'en' ? 'English' : 'Español'}
+COMPLEXIDADE: ${complex === 'simple' ? 'simples, 1 página' : complex === 'medium' ? 'médio, multi-secção com scroll' : 'completo, máximo detalhe possível'}
+ANIMAÇÕES: ${anim ? 'Sim — usa CSS transitions, keyframes, hover effects generosos' : 'mínimas'}
+RESPONSIVO: ${resp ? 'Sim — mobile-first, media queries' : 'apenas desktop'}
+ÍCONES: ${icons ? 'usa emojis como ícones (não usar FontAwesome ou libs externas)' : 'sem ícones especiais'}
+
+REGRAS ABSOLUTAS:
+- Código HTML ÚNICO e COMPLETO — tudo num só ficheiro
+- Zero dependências externas (sem CDN, sem imports externos)
+- Funcional imediatamente — abrir o HTML e funciona
+- Design extraordinário, não genérico — surpreende visualmente
+- Conteúdo realista e completo (não usar "Lorem ipsum")
+- CSS inline via <style>, JS inline via <script>
+- Se for app/jogo: lógica completamente funcional
+
+Devolve APENAS o código HTML completo, sem explicações antes ou depois, sem markdown fences.`;
+
+  try {
+    bar.style.width = '40%'; lbl.textContent = 'IA a criar o código…';
+
+    const response = await puter.ai.chat([{ role:'user', content: prompt }], { model });
+    let code = '';
+    if (typeof response === 'string') code = response;
+    else if (response?.message?.content?.[0]?.text) code = response.message.content[0].text;
+    else if (response?.content?.[0]?.text) code = response.content[0].text;
+    else code = JSON.stringify(response);
+
+    // Clean up
+    code = code.replace(/^```html?\n?/i,'').replace(/```\s*$/,'').trim();
+    if (!code.startsWith('<!DOCTYPE') && !code.startsWith('<html')) {
+      const m = code.match(/<!DOCTYPE[\s\S]*<\/html>/i);
+      if (m) code = m[0];
+    }
+
+    bar.style.width = '100%'; lbl.textContent = '✅ Criado!';
+    setTimeout(() => { prog.classList.remove('vis'); bar.style.width='0%'; }, 2000);
+
+    msg.className = 'vmsg ok vis';
+    msg.textContent = `✅ ${appType} criado — a abrir preview…`;
+
+    // Open in preview
+    ppCode = code;
+    document.getElementById('pp-title').textContent = `Preview — ${appType}`;
+    goPage('chat');
+    document.getElementById('preview-panel').classList.add('open');
+    ppTab('prev');
+
+    // Also add to chat
+    chatHistory.push({
+      role:'assistant',
+      content: `Criei o teu ${appType}! Preview aberto à direita.\n\n\`\`\`html\n${code.slice(0,200)}…\n\`\`\`\n\nPodes fazer download clicando em "⬇ Download" no preview.`
+    });
+
+    toast(`🌐 ${appType} criado!`,'cy');
+  } catch(e) {
+    prog.classList.remove('vis');
+    msg.className = 'vmsg err vis';
+    msg.textContent = '❌ Erro: ' + e.message;
+    console.error(e);
+  }
+
+  btn.disabled = false;
+}
+
+// ══════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════
+function renderMd(txt) {
+  if (typeof marked === 'undefined') return escH(txt).replace(/\n/g,'<br>');
+  marked.setOptions({ breaks:true, gfm:true });
+  return marked.parse(txt);
+}
+
+function escH(t) {
+  return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function scrollBot() {
+  const el = document.getElementById('chat-msgs');
+  if (el) requestAnimationFrame(() => el.scrollTop = el.scrollHeight);
+}
+
+function cpCode(btn) {
+  const code = btn.closest('.cb').dataset.code;
+  navigator.clipboard.writeText(code).then(() => toast('📋 Copiado!','ok'));
+}
+
+function dlCode(btn) {
+  const w = btn.closest('.cb');
+  const ext = w.dataset.lang === 'javascript' ? 'js' : w.dataset.lang === 'css' ? 'css' : w.dataset.lang || 'txt';
+  const blob = new Blob([w.dataset.code], { type:'text/plain' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `reborn_code.${ext}`; a.click();
+  toast('⬇ Download!','ok');
+}
+
+function cpTxt(btn) {
+  const txt = decodeURIComponent(btn.dataset.txt || '');
+  navigator.clipboard.writeText(txt).then(() => toast('📋 Copiado!','ok'));
+}
+
+function toast(msg, type='ok') {
+  const el = document.getElementById('toast');
+  document.getElementById('t-ico').textContent = type==='ok'?'✓':type==='er'?'✕':'ℹ';
+  document.getElementById('t-msg').textContent = msg;
+  el.className = `show ${type}`;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.className = '', 2800);
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') ppClose();
+  if ((e.metaKey||e.ctrlKey) && e.key==='k') { e.preventDefault(); newChat(); }
+});
+</script>
+</body>
+</html>
