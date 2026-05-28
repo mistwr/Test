@@ -171,3 +171,30 @@ export function getTierBgColor(tierName: string): string {
   }
   return colors[tierName] || 'bg-gray-500/10'
 }
+
+// Hex colors for inline styles
+const TIER_HEX_COLORS: Record<string, string> = {
+  'Iniciante': '#6b7280',
+  'Bronze': '#d97706',
+  'Prata': '#9ca3af',
+  'Ouro': '#eab308',
+  'Platina': '#22d3ee',
+  'Diamante': '#60a5fa',
+  'Lenda': '#a855f7',
+}
+
+export interface TierInfo {
+  name: string
+  color: string
+  tier: CommissionTier
+}
+
+// Get tier info (name + hex color) based on fiber count
+export function getTierInfo(fibers: number): TierInfo {
+  const tier = getTierByFibers(fibers)
+  return {
+    name: tier.tierName,
+    color: TIER_HEX_COLORS[tier.tierName] || '#6b7280',
+    tier,
+  }
+}

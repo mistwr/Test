@@ -118,7 +118,7 @@ export default function AdminRankingsPage() {
         totalTvs,
         totalMobiles,
         totalFixed,
-        totalCommission: commission.total,
+        totalCommission: commission.totalCommission,
         totalPoints: sellerPoints,
         tier
       }
@@ -147,7 +147,7 @@ export default function AdminRankingsPage() {
         const memberMobiles = memberResults.reduce((sum, r) => sum + r.mobiles, 0)
         const memberFixed = memberResults.reduce((sum, r) => sum + r.fixed_lines, 0)
         const commission = calculateCommission(memberFibers, memberTvs, memberMobiles, memberFixed)
-        totalCommission += commission.total
+        totalCommission += commission.totalCommission
       })
 
       return {
