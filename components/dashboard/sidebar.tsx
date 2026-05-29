@@ -45,7 +45,7 @@ interface NavItem {
   title: string
   href: string
   icon: React.ElementType
-  roles?: ('ADMIN' | 'CHEFE_EQUIPA' | 'VENDEDOR')[]
+  roles?: ('ADMIN' | 'PARCEIRO' | 'CHEFE_EQUIPA' | 'VENDEDOR')[]
 }
 
 const navItems: NavItem[] = [
@@ -114,6 +114,7 @@ export function DashboardSidebar() {
   const getRoleBadge = (role: string) => {
     const badges: Record<string, { label: string; className: string }> = {
       'ADMIN': { label: 'Admin', className: 'bg-red-500/20 text-red-300' },
+      'PARCEIRO': { label: 'Parceiro', className: 'bg-purple-500/20 text-purple-300' },
       'CHEFE_EQUIPA': { label: 'Chefe', className: 'bg-yellow-500/20 text-yellow-300' },
       'VENDEDOR': { label: 'Vendedor', className: 'bg-blue-500/20 text-blue-300' },
     }
